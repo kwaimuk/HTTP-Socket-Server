@@ -23,7 +23,7 @@ Content-Type: text/html
 Content-length: ${indexHTML.length}
 
 ${indexHTML}`;
-  console.log('headersanbody',headersAndBody);
+  // console.log('headersanbody',headersAndBody);
 
     if(requestLine[1] === '/hydrogen.html' ){
   headersAndBody =
@@ -32,26 +32,28 @@ Content-Type: text/html
 Content-length: ${hydrogenHTML.length}
 
 ${hydrogenHTML}`;
-    }
-
-    if(requestLine[1] === '/helium.html' ){
+    } else if(requestLine[1] === '/helium.html' ){
   headersAndBody =
 `HTTP/1.1 200 OK
 Content-Type: text/html
 Content-length: ${heliumHTML.length}
 
 ${heliumHTML}`;
-    }
-
-    if(requestLine[1] === '/css/styles.css'){
+    } else if(requestLine[1] === '/css/styles.css'){
   headersAndBody =
     `HTTP/1.1 200 OK
 Content-Type: text/css
 Content-length: ${webStyles.length}
 
 ${webStyles}`;
-console.log("hit");
+    } else{
+      headersAndBody=`HTTP/1.1 200 OK
+Content-Type: text/html
+Content-length: ${fourOhFour.length}
+
+${fourOhFour}`;
     }
+
 
 
     request.write(headersAndBody);
@@ -114,7 +116,23 @@ const heliumHTML =`<!DOCTYPE html>
   <p>Helium is a chemical element with symbol He and atomic number 2. It is a colorless, odorless, tasteless, non-toxic, inert, monatomic gas that heads the noble gas group in the periodic table. Its boiling and melting points are the lowest among all the elements and it exists only as a gas except in extremely cold conditions.</p>
   <p><a href="/">back</a></p>
 </body>
-</html>`
+</html>`;
+
+const fourOhFour = `<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Element not found!</title>
+  <link rel="stylesheet" href="/css/styles.css">
+</head>
+<body>
+  <h1>404</h1>
+  <h2>Element not found!</h2>
+  <p>
+    <a href="/">back</a>
+  </p>
+</body>
+</html>`;
 
 const webStyles = `@import url(http://fonts.googleapis.com/css?family=Open+Sans|Roboto+Slab);
 
